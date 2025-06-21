@@ -44,6 +44,7 @@ const TabLayout = () => {
                     overflow: "hidden",
                     borderWidth: 1,
                     borderColor: "#010314",
+                    position: "absolute",
                 },
             }}
         >
