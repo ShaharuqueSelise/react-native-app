@@ -1,5 +1,6 @@
 import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
+import TrendingCard from "@/components/TrendingCard";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { fetchMovies } from "@/services/api";
@@ -38,11 +39,10 @@ export default function Index() {
 
           {
             moviesPending ? (
-              <ActivityIndicator
-                size="large"
-                color="#0000ff"
-                className="mt-10 self-center"
-              />
+              <View className="flex-1 justify-center items-center">
+                <ActivityIndicator size="large" color="#AB8BFF" />
+                <Text className="text-white mt-2">Loading movies...</Text>
+              </View>
             ) :
               moviesError ? (
                 <Text>Error: {moviesError}</Text>
@@ -66,12 +66,31 @@ export default function Index() {
 
                   <>
                     <Text className="text-lg text-white font-bold mt-5 mb-3">
+                      Trending Now
+                    </Text>
+
+                    <FlatList
+                      data={movies && movies?.slice(0,5)} // Top 5 trending
+                      renderItem={({ item, index }) => (
+                        <TrendingCard item={item} index={index} />
+                      )}
+                      keyExtractor={(item) => item.id.toString()}
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={{
+                        paddingRight: 20,
+                        gap: 10,
+                      }}
+                      className="mb-6"
+                    />
+
+                    <Text className="text-lg text-white font-bold mt-5 mb-3">
                       Latest Movies
                     </Text>
 
                     <FlatList
                       data={movies}
-                      renderItem={({ item }) => <MovieCard item={item}/>}
+                      renderItem={({ item }) => <MovieCard item={item} />}
                       keyExtractor={(item) => item.id.toString()}
                       numColumns={3}
                       columnWrapperStyle={{
