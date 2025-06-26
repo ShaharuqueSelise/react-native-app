@@ -19,7 +19,7 @@ const LineChartComp = () => {
     labels: ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00'],
     datasets: [
       {
-        data: [5020, 4080, 4500, 8000, 770,5020, 3080, 4500, 8800, 1770],
+        data: [6020, 4080, 4500, 8000, 3670,5020, 3080, 4500, 8800, 1770],
         color: (opacity = 1) => `rgba(239, 68, 68, ${opacity})`, // Red color
         strokeWidth: 2,
       },
@@ -27,29 +27,7 @@ const LineChartComp = () => {
   };
 
   // Y-axis values for glassmorphism labels
-  const yAxisValues = [5920, 5880, 5840, 5800, 5770,];
-
-  const chartConfig = {
-    backgroundColor: 'transparent',
-    backgroundGradientFrom: 'transparent',
-    backgroundGradientTo: 'transparent',
-    decimalPlaces: 0,
-    color: (opacity = 1) => `rgba(239, 68, 68, ${opacity})`,
-    labelColor: (opacity = 1) => `transparent`, // Hide default labels
-    style: {
-      borderRadius: 0,
-    },
-    propsForDots: {
-      r: '0',
-    },
-    propsForBackgroundLines: {
-      strokeDasharray: '',
-      stroke: 'transparent', // No background strokes
-      strokeWidth: 2,
-    },
-    fillShadowGradient: '#ef4444',
-    fillShadowGradientOpacity: 0.1,
-  };
+  const yAxisValues = [10000, 5880, 5840, 5800, 4000,];
 
   const periods = ['1D', '5D', '1M', '3M', '6M', '1Y', 'All'];
 
@@ -96,16 +74,16 @@ const LineChartComp = () => {
         {/* SVG Background Area - positioned absolutely to match LineChart exactly */}
         <View className="absolute inset-0">
           <Svg 
-            width={screenWidth - 32} 
+            width={screenWidth - 10} 
             height={200}
             style={{
-              marginVertical: 8,
+              marginVertical: 4,
             }}
           >
             <Defs>
               <LinearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <Stop offset="0%" stopColor="rgba(239, 68, 68, 0.3)" />
-                <Stop offset="100%" stopColor="rgba(37, 23, 23, 0.05)" />
+                <Stop offset="0%" stopColor="rgba(146, 49, 49, 0.3)" />
+                <Stop offset="100%" stopColor="rgba(10, 0, 0, 0.18)" />
               </LinearGradient>
             </Defs>
             <Path
@@ -147,7 +125,7 @@ const LineChartComp = () => {
         </View>
 
         {/* Glassmorphism X-Axis Labels on Chart */}
-        <View className="absolute bottom-2 left-0 right-0 flex-row justify-between px-16 pointer-events-none">
+        <View className="absolute left-2 gap-2 bottom-2 left-0 right-0 flex-row justify-between px-16 pointer-events-none">
           {chartData.labels.map((label, index) => (
             <View
               key={label}
