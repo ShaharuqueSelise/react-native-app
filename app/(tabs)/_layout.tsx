@@ -4,7 +4,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Image, ImageBackground, Text, View } from 'react-native';
 
-function TabIcon({ focused, icon, title,color  }: any) {
+function TabIcon({ focused, icon, title, color }: any) {
     if (focused) {
         return (
             <ImageBackground
@@ -32,7 +32,7 @@ const TabLayout = () => {
             screenOptions={{
                 tabBarShowLabel: false,
                 tabBarItemStyle: {
-                    
+
                 },
                 tabBarStyle: {
                     backgroundColor: "#010314",
@@ -53,8 +53,8 @@ const TabLayout = () => {
                 options={{
                     title: "Home",
                     headerShown: false,
-                    tabBarIcon: ({ focused,color}) => (
-                        <TabIcon focused={focused} icon={icons.home} title="Home" color={color}/>
+                    tabBarIcon: ({ focused, color }) => (
+                        <TabIcon focused={focused} icon={icons.home} title="Home" color={color} />
                     ),
                 }}
             />
@@ -63,8 +63,8 @@ const TabLayout = () => {
                 options={{
                     title: "Profile",
                     headerShown: false,
-                    tabBarIcon: ({ focused,color }) => (
-                        <TabIcon focused={focused} icon={icons.person} title="Profile" color={color}/>
+                    tabBarIcon: ({ focused, color }) => (
+                        <TabIcon focused={focused} icon={icons.person} title="Profile" color={color} />
                     ),
                 }}
             />
@@ -73,8 +73,8 @@ const TabLayout = () => {
                 options={{
                     title: "Save",
                     headerShown: false,
-                    tabBarIcon: ({ focused,color }) => (
-                        <TabIcon focused={focused} icon={icons.save} title="Save" color={color}/>
+                    tabBarIcon: ({ focused, color }) => (
+                        <TabIcon focused={focused} icon={icons.save} title="Save" color={color} />
                     ),
                 }}
             />
@@ -83,8 +83,8 @@ const TabLayout = () => {
                 options={{
                     headerShown: false,
                     // tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
-                    tabBarIcon: ({ focused,color }) => (
-                        <TabIcon focused={focused} icon={icons.search} title="Search" color={color}/>
+                    tabBarIcon: ({ focused, color }) => (
+                        <TabIcon focused={focused} icon={icons.search} title="Search" color={color} />
                     ),
                 }}
             />
