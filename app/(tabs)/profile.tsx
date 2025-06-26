@@ -1,4 +1,4 @@
-import LineChartComp from "@/components/LineChartComp";
+import CandleChartComp from "@/components/CandleChartComp";
 import useSavedMovies from "@/store/useSavedMovies";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -59,7 +59,8 @@ const Profile = () => {
         </View>
 
         <View className="mt-6">
-          <LineChartComp />
+          {/* <LineChartComp /> */}
+          <CandleChartComp/>
         </View>
       </ScrollView>
     </SafeAreaView>
