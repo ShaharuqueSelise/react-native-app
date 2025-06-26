@@ -19,7 +19,7 @@ const LineChartComp = () => {
     labels: ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00'],
     datasets: [
       {
-        data: [6020, 4080, 4500, 8000, 3670,5020, 3080, 4500, 8800, 1770],
+        data: [6020, 4080, 4500, 8000, 3670, 5020, 3080, 4500, 8800, 1770],
         color: (opacity = 1) => `rgba(239, 68, 68, ${opacity})`, // Red color
         strokeWidth: 2,
       },
@@ -27,7 +27,7 @@ const LineChartComp = () => {
   };
 
   // Y-axis values for glassmorphism labels
-  const yAxisValues = [10000, 5880, 5840, 5800, 4000,];
+  const yAxisValues = [10000, 5880, 5840, 5800, 4000];
 
   const periods = ['1D', '5D', '1M', '3M', '6M', '1Y', 'All'];
 
@@ -67,6 +67,39 @@ const LineChartComp = () => {
     return path;
   };
 
+  // Create just the top edge line path
+  const createTopLinePath = () => {
+    const data = chartData.datasets[0].data;
+    const chartWidth = screenWidth;
+    const chartHeight = 200;
+    
+    const paddingLeft = 0;
+    const paddingRight = 0;
+    const paddingTop = 0;
+    const paddingBottom = 0;
+    
+    const plotWidth = chartWidth - paddingLeft - paddingRight;
+    const plotHeight = chartHeight - paddingTop - paddingBottom;
+    
+    const minValue = Math.min(...data);
+    const maxValue = Math.max(...data);
+    const range = maxValue - minValue || 1;
+    
+    // Start from the first data point
+    const firstX = paddingLeft;
+    const firstY = paddingTop + ((maxValue - data[0]) / range) * plotHeight;
+    let path = `M ${firstX} ${firstY}`;
+    
+    // Draw line through all data points (only the top edge)
+    data.slice(1).forEach((value, index) => {
+      const x = paddingLeft + ((index + 1) * plotWidth) / (data.length - 1);
+      const y = paddingTop + ((maxValue - value) / range) * plotHeight;
+      path += ` L ${x} ${y}`;
+    });
+    
+    return path;
+  };
+
   return (
     <View className="bg-black p-4 rounded-lg mt-4">
       {/* Chart Container with Background */}
@@ -86,9 +119,18 @@ const LineChartComp = () => {
                 <Stop offset="100%" stopColor="rgba(10, 0, 0, 0.18)" />
               </LinearGradient>
             </Defs>
+            {/* Area fill without stroke */}
             <Path
               d={createAreaPath()}
               fill="url(#areaGradient)"
+            />
+            {/* Bold top edge line only */}
+            <Path
+              d={createTopLinePath()}
+              fill="none"
+              stroke="rgb(158, 58, 40)"
+              strokeWidth="3"
+              strokeLinecap="round"
             />
           </Svg>
         </View>
@@ -164,18 +206,18 @@ const LineChartComp = () => {
                 className="px-4 py-2 rounded-lg"
                 style={{
                   backgroundColor: selectedPeriod === period 
-                    ? 'rgba(59, 130, 246, 0.8)' 
+                    ? 'rgba(241, 241, 241, 0.8)' 
                     : 'rgba(255, 255, 255, 0.1)',
                   borderWidth: 1,
                   borderColor: selectedPeriod === period 
-                    ? 'rgba(59, 130, 246, 0.5)' 
+                    ? 'rgba(241, 241, 241, 0.8)' 
                     : 'rgba(255, 255, 255, 0.2)',
                 }}
               >
                 <Text
                   className={`text-sm font-medium ${
                     selectedPeriod === period
-                      ? 'text-white'
+                      ? 'text-black'
                       : 'text-gray-300'
                   }`}
                 >
