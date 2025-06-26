@@ -37,7 +37,7 @@ const CandleChartComp = () => {
   // Chart dimensions
   const chartWidth = screenWidth - 40;
   const chartHeight = 300;
-  const paddingLeft = 60;
+  const paddingLeft = 0;
   const paddingRight = 20;
   const paddingTop = 20;
   const paddingBottom = 40;
@@ -82,7 +82,7 @@ const CandleChartComp = () => {
           y1={highY}
           x2={x}
           y2={lowY}
-          stroke={isGreen ? '#00ff88' : '#ff4444'}
+          stroke={isGreen ? '#82F6BD' : '#E97257'}
           strokeWidth="1"
         />
         
@@ -92,8 +92,8 @@ const CandleChartComp = () => {
           y={bodyTop}
           width={candleWidth}
           height={bodyHeight || 1}
-          fill={isGreen ? '#00ff88' : '#ff4444'}
-          stroke={isGreen ? '#00ff88' : '#ff4444'}
+          fill={isGreen ? '#82F6BD' : '#E97257'}
+          stroke={isGreen ? '#82F6BD' : '#E97257'}
           strokeWidth="1"
         />
       </React.Fragment>

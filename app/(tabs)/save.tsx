@@ -1,43 +1,66 @@
-import { images } from "@/constants/images";
+import CandleChartComp from "@/components/CandleChartComp";
 import useSavedMovies from "@/store/useSavedMovies";
-import { Link } from "expo-router";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Save = () => {
   const { savedMovies, removeMovie } = useSavedMovies();
+  const fakeUser = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    avatar: "https://i.pravatar.cc/150?img=12",
+    followers: 1200,
+    following: 185,
+    bio: "Full-stack developer passionate about React Native, Web3, and UI/UX design. Coffee enthusiast ☕️",
+  };
 
   return (
-    <SafeAreaView className="bg-primary flex-1">
-       <Image
+    <SafeAreaView className="bg-black flex-1">
+      {/* <Image
         source={images.bg}
-        className="flex-1 absolute w-full z-0"
+        style={StyleSheet.absoluteFillObject}
         resizeMode="cover"
-      />
-      <ScrollView className="px-5 my-10">
-        <Text className="text-white font-bold text-xl my-4">Favourite Movies</Text>
-        {savedMovies.length === 0 ? (
-          <Text className="text-gray-500">No saved movies yet.</Text>
-        ) : (
-          savedMovies.map((movie) => (
-            <View key={movie.id} className="mb-5 flex-row items-center gap-4">
-              <Image
-                source={{ uri: `https://image.tmdb.org/t/p/w200${movie.poster_path}` }}
-                className="w-20 h-28 rounded"
-              />
-              <View className="flex-1">
-                <Link href={`/movie/${movie.id}`} asChild>
-                  <TouchableOpacity>
-                    <Text className="text-white font-bold text-base">{movie.title}</Text>
-                  </TouchableOpacity>
-                </Link>
-                <TouchableOpacity onPress={() => removeMovie(movie.id)}>
-                  <Text className="text-red-400 mt-1">Remove</Text>
-                </TouchableOpacity>
+      /> */}
+      <ScrollView >
+        <View className="flex-row justify-between items-center px-4 mt-8">
+          <TouchableOpacity>
+            <Ionicons name="arrow-back" size={24} color="white" />
+          </TouchableOpacity>
+
+          <View className="flex-row gap-4">
+            <TouchableOpacity>
+              <Ionicons name="star-outline" size={24} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons name="share-social-outline" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View className="rounded-xl p-4 mt-8">
+          <View className="flex-row items-center justify-between">
+            <View className="flex-row items-center">
+              <View className="w-10 h-10 rounded-full bg-red-500 justify-center items-center">
+                <Text className="text-white font-bold">500</Text>
+              </View>
+              <View className="ml-3">
+                <Text className="text-white font-semibold text-base">S&P500</Text>
+                <Text className="text-gray-400 text-xs">SPX • SP</Text>
               </View>
             </View>
-          ))
-        )}
+            <TouchableOpacity>
+              <Ionicons name="share-outline" size={20} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <Text className="text-white font-bold text-3xl mt-4">$5,905.62 <Text className="text-base text-gray-300">USD</Text></Text>
+          <Text className="text-red-400 font-semibold text-sm mt-1">-6.09 • -0.30% Today</Text>
+        </View>
+
+        <View className="mt-6">
+          <CandleChartComp/>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
