@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Defs, Line, LinearGradient, Rect, Stop } from 'react-native-svg';
@@ -9,7 +10,7 @@ const CandleChartComp = () => {
 
   // Sample candlestick data matching the image pattern
   const candleData = [
-    { time: '21:00', open: 10.485, high: 12.520, low: 7.470, close: 15.500 },
+    { time: '21:00', open: 8.485, high: 7.520, low: 5.470, close: 15.500 },
     { time: '21:30', open: 1.500, high: 5.540, low: 0.485, close: 5.525 },
     { time: '22:00', open: 2.525, high: 5.580, low: 3.2, close: 4.570 },
     { time: '22:30', open: 5.570, high: 5.600, low: 5.540, close: 4.590 },
@@ -30,17 +31,17 @@ const CandleChartComp = () => {
   ];
 
   const periods = ['1D', '5D', '1M', '3M', '6M', '1Y', 'All'];
-  
+
   // Y-axis values matching the image
-  const yAxisValues = [5.920, 5.880, 5.840, 5.800, 5.760, 5.720, 5.680, 5.640, 5.600, 5.560, 5.520, 5.480];
+  const yAxisValues = [10.920, 8.880, 6.840, 4.800, 2.760, 1.720, 1.680];
 
   // Chart dimensions
-  const chartWidth = screenWidth - 40;
+  const chartWidth = screenWidth;
   const chartHeight = 300;
-  const paddingLeft = 0;
-  const paddingRight = 20;
+  const paddingLeft = 5;
+  const paddingRight = 0;
   const paddingTop = 20;
-  const paddingBottom = 40;
+  const paddingBottom = 100;
   const plotWidth = chartWidth - paddingLeft - paddingRight;
   const plotHeight = chartHeight - paddingTop - paddingBottom;
 
@@ -51,29 +52,29 @@ const CandleChartComp = () => {
   const range = maxValue - minValue;
 
   // Helper function to convert price to Y coordinate
-  const priceToY = (price:any) => {
+  const priceToY = (price: any) => {
     return paddingTop + ((maxValue - price) / range) * plotHeight;
   };
 
   // Helper function to convert index to X coordinate
-  const indexToX = (index:any) => {
+  const indexToX = (index: any) => {
     return paddingLeft + (index * plotWidth) / (candleData.length - 1);
   };
 
   // Render individual candlestick
-  const renderCandlestick = (data:any, index:any) => {
+  const renderCandlestick = (data: any, index: any) => {
     const x = indexToX(index);
-    const candleWidth = 8;
-    
+    const candleWidth = 7;
+
     const openY = priceToY(data.open);
     const closeY = priceToY(data.close);
     const highY = priceToY(data.high);
     const lowY = priceToY(data.low);
-    
+
     const isGreen = data.close > data.open;
     const bodyTop = Math.min(openY, closeY);
     const bodyHeight = Math.abs(closeY - openY);
-    
+
     return (
       <React.Fragment key={index}>
         {/* High-Low line (wick) */}
@@ -85,7 +86,7 @@ const CandleChartComp = () => {
           stroke={isGreen ? '#82F6BD' : '#E97257'}
           strokeWidth="1"
         />
-        
+
         {/* Candlestick body */}
         <Rect
           x={x - candleWidth / 2}
@@ -111,10 +112,10 @@ const CandleChartComp = () => {
               <Stop offset="100%" stopColor="rgba(255, 255, 255, 0.05)" />
             </LinearGradient>
           </Defs>
-          
+
           {/* Horizontal grid lines */}
           {yAxisValues.map((value, index) => {
-            const y = priceToY(value);
+            const y = indexToX(6);
             return (
               <Line
                 key={`grid-${index}`}
@@ -122,13 +123,13 @@ const CandleChartComp = () => {
                 y1={y}
                 x2={chartWidth - paddingRight}
                 y2={y}
-                stroke="rgba(255, 255, 255, 0.1)"
-                strokeWidth="0.5"
-                strokeDasharray="2,2"
+                stroke="rgba(255, 255, 255, 0.14)"
+                strokeWidth="0.8"
+                strokeDasharray="1,6"
               />
             );
           })}
-          
+
           {/* Vertical grid lines */}
           {candleData.map((_, index) => {
             if (index % 3 === 0) {
@@ -147,11 +148,11 @@ const CandleChartComp = () => {
             }
             return null;
           })}
-          
+
           {/* Candlesticks */}
           {candleData.map((data, index) => renderCandlestick(data, index))}
         </Svg>
-        
+
         {/* Y-axis labels */}
         <View className="absolute left-2 top-4 bottom-10 justify-between">
           {yAxisValues.map((value, index) => (
@@ -159,9 +160,18 @@ const CandleChartComp = () => {
               key={`y-label-${index}`}
               className="px-2 py-1 rounded-md"
               style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                backgroundColor: 'rgba(255, 255, 255, 0.23)',
                 borderWidth: 1,
-                borderColor: 'rgba(255, 255, 255, 0.2)',
+                borderColor: 'rgba(255, 255, 255, 0.25)',
+                backdropFilter: 'blur(90px)',
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.2,
+                shadowRadius: 2,
+                elevation: 3,
               }}
             >
               <Text className="text-white text-xs font-mono">
@@ -170,20 +180,19 @@ const CandleChartComp = () => {
             </View>
           ))}
         </View>
+
+
         
+
+
         {/* X-axis labels */}
-        <View className="absolute bottom-2 left-14 right-5 flex-row justify-between">
+        <View className="absolute bottom-2 left-0 right-5 flex-row justify-between">
           {candleData.map((data, index) => {
             if (index % 3 === 0) {
               return (
                 <View
                   key={`x-label-${index}`}
                   className="px-2 py-1 rounded-md"
-                  style={{
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                    borderWidth: 1,
-                    borderColor: 'rgba(255, 255, 255, 0.2)',
-                  }}
                 >
                   <Text className="text-white text-xs font-mono">
                     {data.time}
@@ -195,7 +204,7 @@ const CandleChartComp = () => {
           })}
         </View>
       </View>
-      
+
       {/* Controls */}
       <View className="flex-row justify-between items-center mb-4">
         {/* Volume and Expand icons */}
@@ -237,36 +246,48 @@ const CandleChartComp = () => {
       </View>
 
       {/* Time Period Selector */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View className="flex-row gap-2 px-2">
-          {periods.map((period) => (
-            <TouchableOpacity
-              key={period}
-              onPress={() => setSelectedPeriod(period)}
-              className="px-4 py-2 rounded-lg"
-              style={{
-                backgroundColor: selectedPeriod === period 
-                  ? 'rgba(255, 255, 255, 0.2)' 
-                  : 'rgba(255, 255, 255, 0.1)',
-                borderWidth: 1,
-                borderColor: selectedPeriod === period 
-                  ? 'rgba(255, 255, 255, 0.4)' 
-                  : 'rgba(255, 255, 255, 0.2)',
-              }}
-            >
-              <Text
-                className={`text-sm font-medium ${
-                  selectedPeriod === period
-                    ? 'text-white'
-                    : 'text-gray-400'
-                }`}
+      <View className="p-2 flex-row justify-between items-center">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View className="flex-row gap-2">
+            {periods.map((period) => (
+              <TouchableOpacity
+                key={period}
+                onPress={() => setSelectedPeriod(period)}
+                className="px-4 py-2 rounded-lg"
+                style={{
+                  backgroundColor: selectedPeriod === period
+                    ? 'rgba(241, 241, 241, 0.8)'
+                    : 'rgba(255, 255, 255, 0.1)',
+                  borderWidth: 1,
+                  borderColor: selectedPeriod === period
+                    ? 'rgba(241, 241, 241, 0.8)'
+                    : 'rgba(255, 255, 255, 0.2)',
+                }}
               >
-                {period}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+                <Text
+                  className={`text-sm font-medium ${selectedPeriod === period
+                    ? 'text-black'
+                    : 'text-gray-300'
+                    }`}
+                >
+                  {period}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+
+        <TouchableOpacity
+          className="ml-4 p-2 rounded-lg"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 1,
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+          }}
+        >
+          <Ionicons name="expand-outline" size={20} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

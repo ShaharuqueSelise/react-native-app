@@ -19,7 +19,7 @@ const LineChartComp = () => {
     labels: ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00'],
     datasets: [
       {
-        data: [6020, 4080, 4500, 8000, 3670, 5020, 3080, 4500, 8800, 1770],
+        data: [8800, 7080, 6500, 8000, 9670, 6020, 5080, 5500, 6670, 6020, 7080, 7500, 8800, 1770],
         color: (opacity = 1) => `rgba(239, 68, 68, ${opacity})`, // Red color
         strokeWidth: 2,
       },
@@ -27,7 +27,7 @@ const LineChartComp = () => {
   };
 
   // Y-axis values for glassmorphism labels
-  const yAxisValues = [10000, 5880, 5840, 5800, 4000];
+  const yAxisValues = [10000, 8000, 6040, 5400, 3000];
 
   const periods = ['1D', '5D', '1M', '3M', '6M', '1Y', 'All'];
 
@@ -101,7 +101,7 @@ const LineChartComp = () => {
   };
 
   return (
-    <View className="bg-black p-4 rounded-lg mt-4">
+    <View className="bg-black rounded-lg mt-4">
       {/* Chart Container with Background */}
       <View className="mb-6 relative">
         {/* SVG Background Area - positioned absolutely to match LineChart exactly */}
@@ -115,7 +115,7 @@ const LineChartComp = () => {
           >
             <Defs>
               <LinearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <Stop offset="0%" stopColor="rgba(146, 49, 49, 0.3)" />
+                <Stop offset="0%" stopColor="rgba(71, 15, 15, 0.3)" />
                 <Stop offset="100%" stopColor="rgba(10, 0, 0, 0.18)" />
               </LinearGradient>
             </Defs>
@@ -128,8 +128,8 @@ const LineChartComp = () => {
             <Path
               d={createTopLinePath()}
               fill="none"
-              stroke="rgb(158, 58, 40)"
-              strokeWidth="3"
+              stroke="#E97257"
+              strokeWidth="2"
               strokeLinecap="round"
             />
           </Svg>
@@ -143,12 +143,12 @@ const LineChartComp = () => {
           {yAxisValues.map((value, index) => (
             <View
               key={value}
-              className="px-2 py-1 rounded-md"
+              className="px-2 py-1 rounded-lg"
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                backgroundColor: 'rgba(255, 255, 255, 0.16)',
                 borderWidth: 1,
                 borderColor: 'rgba(255, 255, 255, 0.25)',
-                backdropFilter: 'blur(10px)',
+                backdropFilter: 'blur(90px)',
                 shadowColor: '#000',
                 shadowOffset: {
                   width: 0,
@@ -172,20 +172,6 @@ const LineChartComp = () => {
             <View
               key={label}
               className="px-2 py-1 rounded-md"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                borderWidth: 1,
-                borderColor: 'rgba(255, 255, 255, 0.25)',
-                backdropFilter: 'blur(10px)',
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.2,
-                shadowRadius: 2,
-                elevation: 3,
-              }}
             >
               <Text className="text-white text-xs font-medium">
                 {label}
@@ -196,7 +182,7 @@ const LineChartComp = () => {
       </View>
 
       {/* Time Period Selector */}
-      <View className="flex-row justify-between items-center">
+      <View className="p-2 flex-row justify-between items-center">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View className="flex-row gap-2">
             {periods.map((period) => (
