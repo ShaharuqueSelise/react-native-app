@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
 import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -20,7 +19,7 @@ const LineChartComp = () => {
     labels: ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00'],
     datasets: [
       {
-        data: [5020, 4080, 4500, 8000, 5770],
+        data: [5020, 4080, 4500, 8000, 770,5020, 3080, 4500, 8800, 1770],
         color: (opacity = 1) => `rgba(239, 68, 68, ${opacity})`, // Red color
         strokeWidth: 2,
       },
@@ -28,7 +27,7 @@ const LineChartComp = () => {
   };
 
   // Y-axis values for glassmorphism labels
-  const yAxisValues = [5920, 5880, 5840, 5800, 5770];
+  const yAxisValues = [5920, 5880, 5840, 5800, 5770,];
 
   const chartConfig = {
     backgroundColor: 'transparent',
@@ -57,40 +56,56 @@ const LineChartComp = () => {
   // Create the area fill path for light red background below line
   const createAreaPath = () => {
     const data = chartData.datasets[0].data;
-    const width = screenWidth; // Account for margins
-    const height = 200;
-    const padding = 0;
+    const chartWidth = screenWidth; // Match LineChart width exactly
+    const chartHeight = 200; // Match LineChart height exactly
+    
+    // LineChart internal padding (these are the actual values used by react-native-chart-kit)
+    const paddingLeft = 0;
+    const paddingRight = 0;
+    const paddingTop = 0;
+    const paddingBottom = 0;
+    
+    const plotWidth = chartWidth - paddingLeft - paddingRight;
+    const plotHeight = chartHeight - paddingTop - paddingBottom;
     
     const minValue = Math.min(...data);
     const maxValue = Math.max(...data);
-    const range = maxValue - minValue;
+    const range = maxValue - minValue || 1; // Prevent division by zero
     
-    let path = `M ${padding} ${height - padding}`;
+    // Start from bottom-left of the plot area
+    let path = `M ${paddingLeft} ${chartHeight - paddingBottom}`;
     
+    // Draw line following the data points
     data.forEach((value, index) => {
-      const x = padding + (index * (width - 2 * padding)) / (data.length - 1);
-      const y = padding + ((maxValue - value) / range) * (height - 2 * padding);
+      const x = paddingLeft + (index * plotWidth) / (data.length - 1);
+      const y = paddingTop + ((maxValue - value) / range) * plotHeight;
       path += ` L ${x} ${y}`;
     });
     
-    path += ` L ${width - padding} ${height - padding} Z`;
+    // Close the path by going to bottom-right and back to start
+    path += ` L ${paddingLeft + plotWidth} ${chartHeight - paddingBottom}`;
+    path += ` L ${paddingLeft} ${chartHeight - paddingBottom} Z`;
+    
     return path;
   };
 
   return (
     <View className="bg-black p-4 rounded-lg mt-4">
-      
-
-
       {/* Chart Container with Background */}
       <View className="mb-6 relative">
-        {/* Light Red Background Area */}
-        <View className="absolute inset-0 rounded-lg overflow-hidden">
-          <Svg>
+        {/* SVG Background Area - positioned absolutely to match LineChart exactly */}
+        <View className="absolute inset-0">
+          <Svg 
+            width={screenWidth - 32} 
+            height={200}
+            style={{
+              marginVertical: 8,
+            }}
+          >
             <Defs>
               <LinearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <Stop offset="0%" stopColor="rgba(223, 60, 60, 0.3)" />
-                <Stop offset="100%" stopColor="rgba(15, 12, 12, 0.05)" />
+                <Stop offset="0%" stopColor="rgba(239, 68, 68, 0.3)" />
+                <Stop offset="100%" stopColor="rgba(37, 23, 23, 0.05)" />
               </LinearGradient>
             </Defs>
             <Path
@@ -100,28 +115,8 @@ const LineChartComp = () => {
           </Svg>
         </View>
 
-        {/* Main Chart */}
-        <LineChart
-          data={chartData}
-          width={screenWidth - 32}
-          height={200}
-          chartConfig={chartConfig}
-          bezier={false}
-          style={{
-            marginVertical: 8,
-            borderRadius: 8,
-          }}
-          withHorizontalLabels={false} // Hide default Y labels
-          withVerticalLabels={false} // Hide default X labels
-          withDots={false}
-          withShadow={false}
-          withScrollableDot={false}
-          withInnerLines={false} // No inner grid lines
-          withOuterLines={false} // No outer grid lines
-          yAxisInterval={1}
-          segments={8}
-          transparent={true}
-        />
+        {/* Spacer to maintain height */}
+        <View style={{ height: 216, width: screenWidth - 32 }} />
 
         {/* Glassmorphism Y-Axis Labels on Chart */}
         <View className="absolute left-2 top-0 bottom-0 justify-between py-8 pointer-events-none">
@@ -152,7 +147,7 @@ const LineChartComp = () => {
         </View>
 
         {/* Glassmorphism X-Axis Labels on Chart */}
-        <View className=" left-0 right-0 flex-row justify-between px-8 pointer-events-none">
+        <View className="absolute bottom-2 left-0 right-0 flex-row justify-between px-16 pointer-events-none">
           {chartData.labels.map((label, index) => (
             <View
               key={label}
