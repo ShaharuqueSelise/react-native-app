@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 import { ChartCandlestick, Hourglass } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
@@ -9,6 +10,7 @@ import {
   View
 } from 'react-native';
 import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
+import { styles } from './candleChartBottom/CandleChartBottom';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -108,10 +110,10 @@ const LineChartComp = () => {
         {/* SVG Background Area - positioned absolutely to match LineChart exactly */}
         <View className="absolute inset-0">
           <Svg
-            width={screenWidth - 10}
+            width={screenWidth}
             height={200}
             style={{
-              marginVertical: 4,
+              marginVertical: 6,
             }}
           >
             <Defs>
@@ -140,30 +142,19 @@ const LineChartComp = () => {
         <View style={{ height: 216, width: screenWidth - 32 }} />
 
         {/* Glassmorphism Y-Axis Labels on Chart */}
-        <View className="absolute left-2 top-0 bottom-0 justify-between py-8 pointer-events-none">
+        <View className="absolute left-2 top-0 bottom-0 justify-between py-8 pointer-events-none gap-y-6">
           {yAxisValues.map((value, index) => (
-            <View
+            <BlurView
+              intensity={10}
               key={value}
-              className="px-2 py-1 rounded-lg"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.16)',
-                borderWidth: 1,
-                borderColor: 'rgba(255, 255, 255, 0.25)',
-                backdropFilter: 'blur(90px)',
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.2,
-                shadowRadius: 2,
-                elevation: 3,
-              }}
-            >
+              className="px-2 py-1"
+              style={[
+                styles.blurContainer,
+              ]}>
               <Text className="text-white text-xs font-medium">
                 {value.toLocaleString()}
               </Text>
-            </View>
+            </BlurView>
           ))}
         </View>
 
@@ -171,8 +162,8 @@ const LineChartComp = () => {
 
       </View>
 
-      {/* Controls positioned between y-axis and x-axis labels */}
-      <View className="px-2 flex-row justify-between items-center">
+      {/* Controls */}
+      <View className="mt-8 px-2 flex-row justify-between items-center">
         {/* Volume and Expand icons */}
         {/* Expand button */}
         <TouchableOpacity
@@ -184,7 +175,7 @@ const LineChartComp = () => {
             padding: 10
           }}
         >
-          <Hourglass size={16} color="#FFFFFF"/>
+          <Hourglass size={16} color="#FFFFFF" />
         </TouchableOpacity>
 
         <View className="flex-row gap-3">
@@ -234,25 +225,24 @@ const LineChartComp = () => {
               <TouchableOpacity
                 key={period}
                 onPress={() => setSelectedPeriod(period)}
-                className="px-4 py-2 rounded-lg"
-                style={{
-                  backgroundColor: selectedPeriod === period
-                    ? 'rgba(241, 241, 241, 0.8)'
-                    : 'rgba(255, 255, 255, 0.1)',
-                  borderWidth: 1,
-                  borderColor: selectedPeriod === period
-                    ? 'rgba(241, 241, 241, 0.8)'
-                    : 'rgba(255, 255, 255, 0.2)',
-                }}
               >
-                <Text
-                  className={`text-sm font-medium ${selectedPeriod === period
-                    ? 'text-black'
-                    : 'text-gray-300'
-                    }`}
+                <BlurView
+                  intensity={10}
+                  className="px-4 py-2"
+                  style={[
+                    styles.blurContainer,
+                    selectedPeriod === period && { borderColor: '#fff', backgroundColor: '#fff', opacity: 1 }
+                  ]}
                 >
-                  {period}
-                </Text>
+                  <Text
+                    className={`text-sm font-medium ${selectedPeriod === period
+                      ? 'text-black'
+                      : 'text-gray-300'
+                      }`}
+                  >
+                    {period}
+                  </Text>
+                </BlurView>
               </TouchableOpacity>
             ))}
           </View>

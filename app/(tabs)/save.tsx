@@ -1,3 +1,4 @@
+import CandleChartBottom from "@/components/candleChartBottom/CandleChartBottom";
 import CandleChartComp from "@/components/CandleChartComp";
 import useSavedMovies from "@/store/useSavedMovies";
 import { Ionicons } from "@expo/vector-icons";
@@ -61,6 +62,11 @@ const Save = () => {
         <View className="mt-6">
           <CandleChartComp/>
         </View>
+
+        {/* Divider */}
+        <View className="h-px bg-[#FFFFFF7A] opacity-25 mt-8" />
+
+        <CandleChartBottom></CandleChartBottom>
       </ScrollView>
     </SafeAreaView>
   );

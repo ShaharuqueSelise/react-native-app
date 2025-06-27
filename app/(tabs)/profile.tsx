@@ -65,7 +65,7 @@ const Profile = () => {
         </View>
         
         {/* Divider */}
-        <View className="h-px bg-gray-500 mt-8" />
+        <View className="h-px bg-[#FFFFFF7A] opacity-25 mt-8" />
         
         <LineChartBottom></LineChartBottom>
       </ScrollView>

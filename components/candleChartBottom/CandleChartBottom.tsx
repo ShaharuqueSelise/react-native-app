@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Svg, { Circle, Line, Path } from 'react-native-svg';
 
-const FinancialDashboard = () => {
+const CandleChartBottom = () => {
     const renderTabButton = (title: any, isActive = false) => (
         <TouchableOpacity>
             <BlurView
@@ -27,7 +27,6 @@ const FinancialDashboard = () => {
             </BlurView>
         </TouchableOpacity>
     );
-
 
     const renderDataRow = (label: any, value: any, valueColor = 'text-white') => (
         <View className="flex-row justify-between items-center py-2">
@@ -151,17 +150,6 @@ const FinancialDashboard = () => {
                     {renderTabButton('Ideas')}
                 </View>
 
-                {/* <BlurView intensity={60}>
-                    <Text>Test</Text>
-                </BlurView>
-                <BlurView intensity={80} tint="light" style={styles.blurContainer}>
-                    <Text style={styles.text}>Test</Text>
-                </BlurView>
-                <BlurView intensity={90} tint="dark" style={styles.blurContainer}>
-                    <Text style={[styles.text, { color: '#fff' }]}>Test</Text>
-                </BlurView> */}
-
-
                 {/* News Card */}
                 <TouchableOpacity className="bg-black rounded-lg mb-4">
                     <LinearGradient
@@ -214,9 +202,9 @@ const FinancialDashboard = () => {
 
                         <TouchableOpacity>
                             <LinearGradient
-                            className='flex-row items-center justify-center p-3 mt-4'
+                                className='flex-row items-center justify-center p-3 mt-4'
                                 colors={['#373941', '#18191D', '#18191D']}
-                                style={{opacity: 0.67, borderRadius: 8, borderWidth: 1, borderColor: '#A1A6BF' }}
+                                style={{ opacity: 0.67, borderRadius: 8, borderWidth: 1, borderColor: '#A1A6BF' }}
                             >
                                 <Text className="text-white text-sm font-medium mr-2">More Details</Text>
                                 <ArrowRight size={16} color="#FFFFFF" />
@@ -225,22 +213,21 @@ const FinancialDashboard = () => {
 
                     </View>
                 </LinearGradient>
-
             </View>
         </View>
     );
 };
 
-export default FinancialDashboard;
+export default CandleChartBottom;
 
 
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     blurContainer: {
         borderRadius: 5,
         overflow: 'hidden', // Important for blur to be clipped
         borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.3)',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.2,
@@ -250,4 +237,3 @@ const styles = StyleSheet.create({
         opacity: 0.8
     },
 });
-

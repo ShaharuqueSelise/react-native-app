@@ -1,7 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
+import { ChartCandlestick, Hourglass } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Defs, Line, LinearGradient, Rect, Stop } from 'react-native-svg';
+import { styles } from './candleChartBottom/CandleChartBottom';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -156,50 +159,42 @@ const CandleChartComp = () => {
         {/* Y-axis labels */}
         <View className="absolute left-2 top-4 bottom-10 justify-between">
           {yAxisValues.map((value, index) => (
-            <View
+            <BlurView
+            intensity={10}
               key={`y-label-${index}`}
-              className="px-2 py-1 rounded-md"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.23)',
-                borderWidth: 1,
-                borderColor: 'rgba(255, 255, 255, 0.25)',
-                backdropFilter: 'blur(90px)',
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: 0.2,
-                shadowRadius: 2,
-                elevation: 3,
-              }}
+              className="px-2 py-1"
+              style={[
+                styles.blurContainer,
+            ]}
             >
               <Text className="text-white text-xs font-mono">
                 {value.toFixed(3)}
               </Text>
-            </View>
+            </BlurView>
           ))}
         </View>
 
 
       </View>
 
-      {/* Controls positioned between y-axis and x-axis labels */}
+      {/* Controls*/}
       <View className="px-2 flex-row justify-between items-center">
         {/* Volume and Expand icons */}
-        <View className="flex-row gap-3">
-          <TouchableOpacity
-            className="p-2 rounded-lg"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              borderWidth: 1,
-              borderColor: 'rgba(255, 255, 255, 0.2)',
-            }}
-          >
-            <Text className="text-white text-lg">📊</Text>
-          </TouchableOpacity>
+        {/* Expand button */}
+        <TouchableOpacity
+          className="rounded-lg"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.06)',
+            borderWidth: 1,
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+            padding: 10
+          }}
+        >
+          <Hourglass size={16} color="#FFFFFF" />
+        </TouchableOpacity>
 
-          <TouchableOpacity
+        <View className="flex-row gap-3">
+          {/* <TouchableOpacity
             className="p-2 rounded-lg"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -208,20 +203,19 @@ const CandleChartComp = () => {
             }}
           >
             <Text className="text-white text-lg">⛶</Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            className="p-2 rounded-lg"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.06)',
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              padding: 10
+            }}
+          >
+            <ChartCandlestick size={16} color="#FFFFFF"></ChartCandlestick>
           </TouchableOpacity>
         </View>
-
-        {/* Expand button */}
-        <TouchableOpacity
-          className="p-2 rounded-lg"
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            borderWidth: 1,
-            borderColor: 'rgba(255, 255, 255, 0.2)',
-          }}
-        >
-          <Text className="text-white text-lg">⤢</Text>
-        </TouchableOpacity>
       </View>
 
       {/* X-axis labels */}
@@ -251,25 +245,24 @@ const CandleChartComp = () => {
               <TouchableOpacity
                 key={period}
                 onPress={() => setSelectedPeriod(period)}
-                className="px-4 py-2 rounded-lg"
-                style={{
-                  backgroundColor: selectedPeriod === period
-                    ? 'rgba(241, 241, 241, 0.8)'
-                    : 'rgba(255, 255, 255, 0.1)',
-                  borderWidth: 1,
-                  borderColor: selectedPeriod === period
-                    ? 'rgba(241, 241, 241, 0.8)'
-                    : 'rgba(255, 255, 255, 0.2)',
-                }}
               >
-                <Text
-                  className={`text-sm font-medium ${selectedPeriod === period
-                    ? 'text-black'
-                    : 'text-gray-300'
-                    }`}
+                <BlurView
+                  intensity={10}
+                  className="px-4 py-2"
+                  style={[
+                    styles.blurContainer,
+                    selectedPeriod === period && { borderColor: '#fff', backgroundColor: '#fff', opacity: 1 }
+                ]}
                 >
-                  {period}
-                </Text>
+                  <Text
+                    className={`text-sm font-medium ${selectedPeriod === period
+                      ? 'text-black'
+                      : 'text-gray-300'
+                      }`}
+                  >
+                    {period}
+                  </Text>
+                </BlurView>
               </TouchableOpacity>
             ))}
           </View>
