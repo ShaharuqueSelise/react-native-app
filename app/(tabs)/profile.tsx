@@ -63,7 +63,10 @@ const Profile = () => {
           <LineChartComp/>
           {/* <CandleChartComp/> */}
         </View>
-
+        
+        {/* Divider */}
+        <View className="h-px bg-gray-500 mt-8" />
+        
         <LineChartBottom></LineChartBottom>
       </ScrollView>
     </SafeAreaView>

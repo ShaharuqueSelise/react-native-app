@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { ChartCandlestick, Hourglass } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
   Dimensions,
@@ -167,25 +168,27 @@ const LineChartComp = () => {
         </View>
 
         {/* Glassmorphism X-Axis Labels on Chart */}
-       
+
       </View>
 
       {/* Controls positioned between y-axis and x-axis labels */}
       <View className="px-2 flex-row justify-between items-center">
         {/* Volume and Expand icons */}
-        <View className="flex-row gap-3">
-          <TouchableOpacity
-            className="p-2 rounded-lg"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              borderWidth: 1,
-              borderColor: 'rgba(255, 255, 255, 0.2)',
-            }}
-          >
-            <Text className="text-white text-lg">📊</Text>
-          </TouchableOpacity>
+        {/* Expand button */}
+        <TouchableOpacity
+          className="rounded-lg"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.06)',
+            borderWidth: 1,
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+            padding: 10
+          }}
+        >
+          <Hourglass size={16} color="#FFFFFF"/>
+        </TouchableOpacity>
 
-          <TouchableOpacity
+        <View className="flex-row gap-3">
+          {/* <TouchableOpacity
             className="p-2 rounded-lg"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -194,35 +197,34 @@ const LineChartComp = () => {
             }}
           >
             <Text className="text-white text-lg">⛶</Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            className="p-2 rounded-lg"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.06)',
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              padding: 10
+            }}
+          >
+            <ChartCandlestick size={16} color="#FFFFFF"></ChartCandlestick>
           </TouchableOpacity>
         </View>
-
-        {/* Expand button */}
-        <TouchableOpacity
-          className="p-2 rounded-lg"
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            borderWidth: 1,
-            borderColor: 'rgba(255, 255, 255, 0.2)',
-          }}
-        >
-          <Text className="text-white text-lg">⤢</Text>
-        </TouchableOpacity>
       </View>
 
       {/* X-axis labels */}
-       <View className="px-2 mt-4 flex-row justify-between">
-          {chartData.labels.map((label, index) => (
-            <View
-              key={label}
-              className="px-2 py-1 rounded-md"
-            >
-              <Text className="text-white text-xs font-medium">
-                {label}
-              </Text>
-            </View>
-          ))}
-        </View>
+      <View className="px-2 mt-4 flex-row justify-between">
+        {chartData.labels.map((label, index) => (
+          <View
+            key={label}
+            className="px-2 py-1 rounded-md"
+          >
+            <Text className="text-white text-xs font-medium">
+              {label}
+            </Text>
+          </View>
+        ))}
+      </View>
 
       {/* Time Period Selector */}
       <View className="px-2 mt-4 flex-row justify-between items-center">
