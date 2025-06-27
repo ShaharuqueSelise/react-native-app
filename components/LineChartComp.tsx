@@ -13,7 +13,7 @@ const { width: screenWidth } = Dimensions.get('window');
 
 const LineChartComp = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('1D');
-  
+
   // Sample data showing a declining trend like in the image
   const chartData = {
     labels: ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00'],
@@ -36,34 +36,34 @@ const LineChartComp = () => {
     const data = chartData.datasets[0].data;
     const chartWidth = screenWidth; // Match LineChart width exactly
     const chartHeight = 200; // Match LineChart height exactly
-    
+
     // LineChart internal padding (these are the actual values used by react-native-chart-kit)
     const paddingLeft = 0;
     const paddingRight = 0;
     const paddingTop = 0;
     const paddingBottom = 0;
-    
+
     const plotWidth = chartWidth - paddingLeft - paddingRight;
     const plotHeight = chartHeight - paddingTop - paddingBottom;
-    
+
     const minValue = Math.min(...data);
     const maxValue = Math.max(...data);
     const range = maxValue - minValue || 1; // Prevent division by zero
-    
+
     // Start from bottom-left of the plot area
     let path = `M ${paddingLeft} ${chartHeight - paddingBottom}`;
-    
+
     // Draw line following the data points
     data.forEach((value, index) => {
       const x = paddingLeft + (index * plotWidth) / (data.length - 1);
       const y = paddingTop + ((maxValue - value) / range) * plotHeight;
       path += ` L ${x} ${y}`;
     });
-    
+
     // Close the path by going to bottom-right and back to start
     path += ` L ${paddingLeft + plotWidth} ${chartHeight - paddingBottom}`;
     path += ` L ${paddingLeft} ${chartHeight - paddingBottom} Z`;
-    
+
     return path;
   };
 
@@ -72,31 +72,31 @@ const LineChartComp = () => {
     const data = chartData.datasets[0].data;
     const chartWidth = screenWidth;
     const chartHeight = 200;
-    
+
     const paddingLeft = 0;
     const paddingRight = 0;
     const paddingTop = 0;
     const paddingBottom = 0;
-    
+
     const plotWidth = chartWidth - paddingLeft - paddingRight;
     const plotHeight = chartHeight - paddingTop - paddingBottom;
-    
+
     const minValue = Math.min(...data);
     const maxValue = Math.max(...data);
     const range = maxValue - minValue || 1;
-    
+
     // Start from the first data point
     const firstX = paddingLeft;
     const firstY = paddingTop + ((maxValue - data[0]) / range) * plotHeight;
     let path = `M ${firstX} ${firstY}`;
-    
+
     // Draw line through all data points (only the top edge)
     data.slice(1).forEach((value, index) => {
       const x = paddingLeft + ((index + 1) * plotWidth) / (data.length - 1);
       const y = paddingTop + ((maxValue - value) / range) * plotHeight;
       path += ` L ${x} ${y}`;
     });
-    
+
     return path;
   };
 
@@ -106,8 +106,8 @@ const LineChartComp = () => {
       <View className="mb-6 relative">
         {/* SVG Background Area - positioned absolutely to match LineChart exactly */}
         <View className="absolute inset-0">
-          <Svg 
-            width={screenWidth - 10} 
+          <Svg
+            width={screenWidth - 10}
             height={200}
             style={{
               marginVertical: 4,
@@ -167,7 +167,51 @@ const LineChartComp = () => {
         </View>
 
         {/* Glassmorphism X-Axis Labels on Chart */}
-        <View className="absolute left-2 gap-2 bottom-2 left-0 right-0 flex-row justify-between px-16 pointer-events-none">
+       
+      </View>
+
+      {/* Controls positioned between y-axis and x-axis labels */}
+      <View className="px-2 flex-row justify-between items-center">
+        {/* Volume and Expand icons */}
+        <View className="flex-row gap-3">
+          <TouchableOpacity
+            className="p-2 rounded-lg"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+            }}
+          >
+            <Text className="text-white text-lg">📊</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="p-2 rounded-lg"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+            }}
+          >
+            <Text className="text-white text-lg">⛶</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Expand button */}
+        <TouchableOpacity
+          className="p-2 rounded-lg"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 1,
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+          }}
+        >
+          <Text className="text-white text-lg">⤢</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* X-axis labels */}
+       <View className="px-2 mt-4 flex-row justify-between">
           {chartData.labels.map((label, index) => (
             <View
               key={label}
@@ -179,10 +223,9 @@ const LineChartComp = () => {
             </View>
           ))}
         </View>
-      </View>
 
       {/* Time Period Selector */}
-      <View className="p-2 flex-row justify-between items-center">
+      <View className="px-2 mt-4 flex-row justify-between items-center">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View className="flex-row gap-2">
             {periods.map((period) => (
@@ -191,21 +234,20 @@ const LineChartComp = () => {
                 onPress={() => setSelectedPeriod(period)}
                 className="px-4 py-2 rounded-lg"
                 style={{
-                  backgroundColor: selectedPeriod === period 
-                    ? 'rgba(241, 241, 241, 0.8)' 
+                  backgroundColor: selectedPeriod === period
+                    ? 'rgba(241, 241, 241, 0.8)'
                     : 'rgba(255, 255, 255, 0.1)',
                   borderWidth: 1,
-                  borderColor: selectedPeriod === period 
-                    ? 'rgba(241, 241, 241, 0.8)' 
+                  borderColor: selectedPeriod === period
+                    ? 'rgba(241, 241, 241, 0.8)'
                     : 'rgba(255, 255, 255, 0.2)',
                 }}
               >
                 <Text
-                  className={`text-sm font-medium ${
-                    selectedPeriod === period
-                      ? 'text-black'
-                      : 'text-gray-300'
-                  }`}
+                  className={`text-sm font-medium ${selectedPeriod === period
+                    ? 'text-black'
+                    : 'text-gray-300'
+                    }`}
                 >
                   {period}
                 </Text>
@@ -213,8 +255,8 @@ const LineChartComp = () => {
             ))}
           </View>
         </ScrollView>
-        
-        <TouchableOpacity 
+
+        <TouchableOpacity
           className="ml-4 p-2 rounded-lg"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.1)',

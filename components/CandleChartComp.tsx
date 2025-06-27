@@ -104,7 +104,7 @@ const CandleChartComp = () => {
   return (
     <View>
       {/* Chart Container */}
-      <View className=" rounded-lg p-4 mb-4">
+      <View className="rounded-lg px-4">
         <Svg width={chartWidth} height={chartHeight}>
           <Defs>
             <LinearGradient id="gridGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -182,34 +182,13 @@ const CandleChartComp = () => {
         </View>
 
 
-        
-
-
-        {/* X-axis labels */}
-        <View className="absolute bottom-2 left-0 right-5 flex-row justify-between">
-          {candleData.map((data, index) => {
-            if (index % 3 === 0) {
-              return (
-                <View
-                  key={`x-label-${index}`}
-                  className="px-2 py-1 rounded-md"
-                >
-                  <Text className="text-white text-xs font-mono">
-                    {data.time}
-                  </Text>
-                </View>
-              );
-            }
-            return null;
-          })}
-        </View>
       </View>
 
-      {/* Controls */}
-      <View className="flex-row justify-between items-center mb-4">
+      {/* Controls positioned between y-axis and x-axis labels */}
+      <View className="px-2 flex-row justify-between items-center">
         {/* Volume and Expand icons */}
         <View className="flex-row gap-3">
-          <TouchableOpacity 
+          <TouchableOpacity
             className="p-2 rounded-lg"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -219,8 +198,8 @@ const CandleChartComp = () => {
           >
             <Text className="text-white text-lg">📊</Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             className="p-2 rounded-lg"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -231,9 +210,9 @@ const CandleChartComp = () => {
             <Text className="text-white text-lg">⛶</Text>
           </TouchableOpacity>
         </View>
-        
+
         {/* Expand button */}
-        <TouchableOpacity 
+        <TouchableOpacity
           className="p-2 rounded-lg"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -245,8 +224,27 @@ const CandleChartComp = () => {
         </TouchableOpacity>
       </View>
 
+      {/* X-axis labels */}
+      <View className="px-2 mt-4 flex-row justify-between">
+        {candleData.map((data, index) => {
+          if (index % 3 === 0) {
+            return (
+              <View
+                key={`x-label-${index}`}
+                className="px-2 py-1 rounded-md"
+              >
+                <Text className="text-white text-xs font-mono">
+                  {data.time}
+                </Text>
+              </View>
+            );
+          }
+          return null;
+        })}
+      </View>
+
       {/* Time Period Selector */}
-      <View className="p-2 flex-row justify-between items-center">
+      <View className="px-2 mt-4 flex-row justify-between items-center">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View className="flex-row gap-2">
             {periods.map((period) => (

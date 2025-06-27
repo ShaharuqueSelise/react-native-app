@@ -1,4 +1,5 @@
 import LineChartComp from "@/components/LineChartComp";
+import LineChartBottom from "@/components/lineChartsEssentials/LineChartBottom";
 import useSavedMovies from "@/store/useSavedMovies";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -62,6 +63,8 @@ const Profile = () => {
           <LineChartComp/>
           {/* <CandleChartComp/> */}
         </View>
+
+        <LineChartBottom></LineChartBottom>
       </ScrollView>
     </SafeAreaView>
   );
