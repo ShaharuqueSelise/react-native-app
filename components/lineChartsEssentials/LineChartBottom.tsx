@@ -93,8 +93,8 @@ const FinancialDashboard = () => {
                         {/* Background track */}
                         <Path
                             d={createArcPath(180, 360, radius, centerX, centerY)}
-                            stroke="#4B5563"
-                            strokeWidth={strokeWidth}
+                            stroke="#181E27"
+                            strokeWidth={strokeWidth-4}
                             fill="none"
                         />
 
@@ -204,7 +204,7 @@ const FinancialDashboard = () => {
                 {/* Technicals */}
                 <LinearGradient
                     colors={['#373941', '#18191D', '#18191D']}
-                    style={{ borderRadius: 8, margin: 4, borderWidth: 1, borderColor: '#374151', }}
+                    style={{ borderRadius: 8, borderWidth: 1, borderColor: '#374151',marginBottom:12 }}
                 >
 
                     <View className=" p-4 mb-4">
@@ -216,7 +216,7 @@ const FinancialDashboard = () => {
                             <LinearGradient
                             className='flex-row items-center justify-center p-3 mt-4'
                                 colors={['#373941', '#18191D', '#18191D']}
-                                style={{opacity: 0.67, borderRadius: 8, borderWidth: 1, borderColor: '#A1A6BF' }}
+                                style={{opacity: 0.67, borderRadius: 8, borderWidth: 1, borderColor: '#A1A6BF',marginBottom:12 }}
                             >
                                 <Text className="text-white text-sm font-medium mr-2">More Details</Text>
                                 <ArrowRight size={16} color="#FFFFFF" />
@@ -225,7 +225,6 @@ const FinancialDashboard = () => {
 
                     </View>
                 </LinearGradient>
-
             </View>
         </View>
     );

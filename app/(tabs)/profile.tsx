@@ -18,12 +18,7 @@ const Profile = () => {
 
   return (
     <SafeAreaView className="bg-black flex-1">
-      {/* <Image
-        source={images.bg}
-        style={StyleSheet.absoluteFillObject}
-        resizeMode="cover"
-      /> */}
-      <ScrollView >
+      <ScrollView className="mb-12">
         <View className="flex-row justify-between items-center px-4 mt-8">
           <TouchableOpacity>
             <Ionicons name="arrow-back" size={24} color="white" />

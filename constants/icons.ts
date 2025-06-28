@@ -1,4 +1,6 @@
 import arrow from "@/assets/icons/arrow.png";
+import candle from "@/assets/icons/candle.png";
+import chart from "@/assets/icons/chart.png";
 import home from "@/assets/icons/home.png";
 import logo from "@/assets/icons/logo.png";
 import person from "@/assets/icons/person.png";
@@ -16,4 +18,6 @@ export const icons = {
   star,
   play,
   arrow,
+  chart,
+  candle
 };

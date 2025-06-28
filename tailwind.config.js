@@ -4,6 +4,10 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      fontFamily: {
+        'ivy': ['IvyPrestoText-Regular'],
+        'ivy-bold': ['IvyPrestoText-Bold'],
+      },
       colors: {
         primary: "#030014",
         secondary: "#151312",

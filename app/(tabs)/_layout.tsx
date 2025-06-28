@@ -12,7 +12,7 @@ function TabIcon({ focused, icon, title, color }: any) {
                 className="flex flex-row w-full flex-1 min-w-[112px] min-h-14 mt-4 justify-center items-center rounded-full overflow-hidden"
             >
                 <Image source={icon} tintColor="#151312" className="size-5" />
-                <Text className="text-secondary text-base font-semibold ml-2">
+                <Text className="text-secondary text-xs font-semibold ml-2">
                     {title}
                 </Text>
             </ImageBackground>
@@ -21,7 +21,7 @@ function TabIcon({ focused, icon, title, color }: any) {
 
     return (
         <View className="size-full justify-center items-center mt-4 rounded-full">
-            <Image source={icon} tintColor={color || "#A8B5DB"} />
+            <Image source={icon} tintColor={color || "#A8B5DB"} className="size-5"/>
         </View>
     );
 }
@@ -35,7 +35,7 @@ const TabLayout = () => {
 
                 },
                 tabBarStyle: {
-                    backgroundColor: "#010314",
+                    backgroundColor: "black",
                     paddingHorizontal: 15,
                     marginHorizontal: 20,
                     borderRadius: 60,
@@ -43,28 +43,18 @@ const TabLayout = () => {
                     height: 54,
                     overflow: "hidden",
                     borderWidth: 1,
-                    borderColor: "#010314",
+                    borderColor: "#373941",
                     position: "absolute",
                 },
             }}
         >
-            <Tabs.Screen
-                name="index"
-                options={{
-                    title: "Home",
-                    headerShown: false,
-                    tabBarIcon: ({ focused, color }) => (
-                        <TabIcon focused={focused} icon={icons.home} title="Home" color={color} />
-                    ),
-                }}
-            />
             <Tabs.Screen
                 name="profile"
                 options={{
                     title: "Profile",
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
-                        <TabIcon focused={focused} icon={icons.person} title="Profile" color={color} />
+                        <TabIcon focused={focused} icon={icons.chart} title="Line Chart" color={color} />
                     ),
                 }}
             />
@@ -74,7 +64,17 @@ const TabLayout = () => {
                     title: "Save",
                     headerShown: false,
                     tabBarIcon: ({ focused, color }) => (
-                        <TabIcon focused={focused} icon={icons.save} title="Save" color={color} />
+                        <TabIcon focused={focused} icon={icons.candle} title="Candle Chart" color={color} />
+                    ),
+                }}
+            />
+                        <Tabs.Screen
+                name="index"
+                options={{
+                    title: "Home",
+                    headerShown: false,
+                    tabBarIcon: ({ focused, color }) => (
+                        <TabIcon focused={focused} icon={icons.home} title="Home" color={color} />
                     ),
                 }}
             />

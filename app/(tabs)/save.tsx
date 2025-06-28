@@ -42,12 +42,12 @@ const Save = () => {
         <View className="rounded-xl p-4 mt-8">
           <View className="flex-row items-center justify-between">
             <View className="flex-row items-center">
-              <View className="w-10 h-10 rounded-full bg-red-500 justify-center items-center">
-                <Text className="text-white font-bold">500</Text>
+              <View className="w-10 h-10 rounded-full bg-white justify-center items-center">
+                <Text className="text-black font-bold">G</Text>
               </View>
               <View className="ml-3">
-                <Text className="text-white font-semibold text-base">S&P500</Text>
-                <Text className="text-gray-400 text-xs">SPX • SP</Text>
+                <Text className="text-white font-semibold text-base">Alphabet, Inc</Text>
+                <Text className="text-gray-400 text-xs">GOOGL • SP</Text>
               </View>
             </View>
             <TouchableOpacity>
@@ -55,8 +55,8 @@ const Save = () => {
             </TouchableOpacity>
           </View>
 
-          <Text className="text-white font-bold text-3xl mt-4">$5,905.62 <Text className="text-base text-gray-300">USD</Text></Text>
-          <Text className="text-red-400 font-semibold text-sm mt-1">-6.09 • -0.30% Today</Text>
+          <Text className="text-white font-bold text-3xl mt-4">$364 <Text className="text-base text-gray-300">USD</Text></Text>
+          <Text className="text-green-400 font-semibold text-sm mt-1">-6.09 • -0.30% Today</Text>
         </View>
 
         <View className="mt-6">
